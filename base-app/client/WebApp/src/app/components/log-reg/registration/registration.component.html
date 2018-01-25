@@ -1,0 +1,96 @@
+<div class="col fixed">
+    <h1 class="display-3">Register</h1>
+    <form class="form-group ml-2 mt-2">
+        <label for="firstName">First Name</label>
+        <input 
+          class="form-control"
+          type="text" 
+          name="firstName" 
+          required
+          minlength="3"
+          maxlength="255"
+          [(ngModel)]='user.firstName'
+          #firstName='ngModel'>
+        <div 
+          class="text-danger" 
+          *ngIf='firstName.errors && firstName.touched && firstName.dirty'>
+            *
+            <span *ngIf='firstName.errors.required'>First name is required</span>
+            <span *ngIf='firstName.errors.minlength'>First name must be longer than 3 characters</span>
+        </div>
+        <label for="lastName">Last Name</label>
+        <input 
+        class="form-control"
+        type="text" 
+        name="lastName" 
+        required
+        minlength="3"
+        maxlength="255"
+        [(ngModel)]='user.lastName'
+        #lastName='ngModel'>
+        <div 
+        class="text-danger" 
+        *ngIf='lastName.errors && lastName.touched && lastName.dirty'>
+        *
+        <span *ngIf='lastName.errors.required'>Last name is required</span>
+        <span *ngIf='lastName.errors.minlength'>Last name must be longer than 3 characters</span>
+      </div>
+      <label for="email">Email</label>
+      <input 
+          class="form-control"
+          type="text" 
+          name="email" 
+          required
+          pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$"
+          maxlength="255"
+          [(ngModel)]='user.email'
+          #email='ngModel'>
+        <div 
+        class="text-danger" 
+          *ngIf='email.errors && email.touched && email.dirty'>
+            *
+            <span *ngIf='email.errors.required'>Email is required</span>
+            <span *ngIf='email.errors.pattern'>Email entered is invalid</span>
+        </div>
+        <div class="text-danger">
+          <span *ngIf='serverMessage != ""'>*{{serverMessage}}</span>
+        </div>
+        <label for="password">Password</label>
+        <input 
+        class="form-control"
+        type="text" 
+        name="password" 
+        required
+        pattern="^[A-Za-z\d$@$!%*?&]{4,}$"
+        maxlength="255"
+        [(ngModel)]='user.password'
+        #password='ngModel'>
+        <div 
+          class="text-danger" 
+          *ngIf='password.errors && password.touched && password.dirty'>
+            *
+            <span *ngIf='password.errors.required'>Password is required</span>
+            <span *ngIf='password.errors.pattern'>Password entered is invalid</span>
+        </div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+        class="form-control"
+        type="text" 
+        name="confirmPassword"
+        required 
+        pattern="{{user.password}}"
+        [(ngModel)]='user.confirmPassword'
+        #confirmPassword='ngModel'>
+        <div 
+          class="text-danger" 
+          *ngIf='confirmPassword.errors && confirmPassword.touched && confirmPassword.dirty'>
+            *
+            <span *ngIf='confirmPassword.errors.pattern'>Passwords do not match</span>
+        </div>
+      </form>
+      
+      <button 
+        (click)='registerUser()' 
+        class="btn btn-success float-right"
+        *ngIf='!(firstName.errors || lastName.errors || email.errors || password.errors || confirmPassword.errors)'>Register</button>
+</div>

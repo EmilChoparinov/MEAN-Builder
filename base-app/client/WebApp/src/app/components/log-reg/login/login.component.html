@@ -1,0 +1,21 @@
+<div class="col">
+  <h1 class="display-3">Login</h1>
+  <form class="form-group mt-2">
+    <label for="email">Email</label>
+    <input type="text" name="email" class="form-control" required [(ngModel)]='user.email' #email='ngModel'>
+    <div class="text-danger" *ngIf='email.errors && email.touched && email.dirty'>
+      *
+      <span *ngIf='email.errors.required'>Email is required</span>
+    </div>
+    <label for="password">Password</label>
+    <input type="text" name="password" class="form-control" required [(ngModel)]='user.password' #password='ngModel'>
+    <div class="text-danger" *ngIf='password.errors && password.touched && password.dirty'>
+      *
+      <span *ngIf='password.errors.required'>Email is required</span>
+    </div>
+    <div class="text-danger">
+      <span *ngIf='serverMessage != ""'>*{{serverMessage}}</span>
+    </div>
+  </form>
+  <button class="btn btn-success float-right" (click)='login()' *ngIf='!(email.errors || password.errors)'>Login</button>
+</div>
